@@ -1,163 +1,378 @@
+// **React + Tailwind Portfolio Template (RTL, animated neon background)**
+// Files included below. Replace placeholder text (NAME, BIO, LINKS, PROJECTS) in src/data.js
+// Instructions: paste these files into a new React project (Vite recommended), install deps, then run.
+
+/*
+package.json
+*/
+{
+  "name": "portfolio-rtl",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^10.12.16",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.5.4",
+    "vite": "^5.0.0"
+  }
+}
+
+/*
+postcss.config.cjs
+*/
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+/*
+tailwind.config.cjs
+*/
+module.exports = {
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        neon: '#00d1ff',
+        darkbg: '#071017',
+        card: '#0f1720',
+        card-2: '#0b1220'
+      },
+      boxShadow: {
+        'neon': '0 10px 30px rgba(0,209,255,0.08)'
+      }
+    },
+  },
+  plugins: [],
+}
+
+/*
+public/index.html
+*/
 <!doctype html>
-<html lang="ar">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>***اسمك الكامل*** — بورتفوليو</title>
-  <meta name="description" content="***نبذة قصيرة عنك***">
-  <style>
-    /* ---------- متغيرات ---------- */
-    :root{
-      --bg1:#0f1724; --bg2:#0b3b62; --accent:#6cc3ff; --card:#0f1728;
-      --glass: rgba(255,255,255,0.06);
-      --muted: #b9c6d6;
-      --radius:14px; --maxw:1100px;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#eaf4ff;background:linear-gradient(120deg,var(--bg1),var(--bg2)); min-height:100vh; display:flex;align-items:center;justify-content:center;padding:28px}
-    /* animated gradient overlay */
-    body::before{
-      content:""; position:fixed; inset:0; z-index:0;
-      background: linear-gradient(60deg, rgba(108,195,255,0.06), rgba(18,24,32,0.06));
-      mix-blend-mode: overlay; animation: moveBG 20s linear infinite;
-      pointer-events:none;
-    }
-    @keyframes moveBG { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-
-    .wrap{width:100%;max-width:var(--maxw);z-index:1}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)); border-radius:18px; overflow:hidden; box-shadow:0 20px 60px rgba(2,6,23,0.6); border:1px solid rgba(255,255,255,0.04)}
-    .top{display:flex;gap:20px;align-items:center;padding:28px}
-    .avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.06);box-shadow:0 10px 30px rgba(3,10,30,0.6)}
-    .head{flex:1}
-    .name{font-size:22px;margin:0;color:#fff}
-    .role{color:var(--muted);margin-top:6px}
-    .bio{color:#d7e9ff;margin-top:10px;line-height:1.5}
-    .actions{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
-    .btn{padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:700;display:inline-flex;gap:8px;align-items:center}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),#2fb4ff);color:#012;box-shadow:0 6px 20px rgba(47,180,255,0.12)}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    /* layout */
-    .main{display:grid;grid-template-columns:1fr 380px;gap:18px;padding:18px 28px 28px}
-    .section{background:transparent;border-radius:12px;padding:8px}
-    h2{color:#dff3ff;margin:6px 0 12px;font-size:16px}
-    /* portfolio grid */
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-    .card-item{background:var(--glass);border-radius:12px;padding:8px;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
-    .card-item:hover{transform:translateY(-6px); box-shadow:0 10px 30px rgba(2,6,23,0.5)}
-    .card-item img{width:100%;height:130px;object-fit:cover;border-radius:8px;display:block}
-    .card-item .title{margin-top:8px;color:#e6f7ff;font-weight:700;font-size:14px}
-    .card-item .meta{font-size:13px;color:var(--muted);margin-top:4px}
-    /* right column */
-    .side{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px;padding:14px}
-    .video-wrap{border-radius:10px;overflow:hidden;background:#000}
-    iframe,video{width:100%;height:210px;border:0;display:block}
-    /* modal */
-    .modal{position:fixed;inset:0;background:rgba(1,6,12,0.6);display:flex;align-items:center;justify-content:center;z-index:999;visibility:hidden;opacity:0;transition:opacity .2s}
-    .modal.show{visibility:visible;opacity:1}
-    .modal .box{width:90%;max-width:900px;background:#071025;border-radius:12px;padding:12px}
-    .modal .box img{width:100%;height:auto;border-radius:8px}
-    .close{background:transparent;border:0;color:#fff;font-size:20px;float:right;cursor:pointer}
-    footer{padding:12px 18px;background:transparent;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid rgba(255,255,255,0.02)}
-    /* responsive */
-    @media(max-width:940px){ .main{grid-template-columns:1fr} .side{order:2} .top{flex-direction:column;align-items:center;text-align:center} .head{align-items:center} .actions{justify-content:center} }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <!-- HEADER -->
-      <div class="top">
-        <img src="assets/avatar.jpg" class="avatar" alt="avatar">
-        <div class="head">
-          <div class="name">Mahmoud Ayman</div>
-          <div class="role">مصمم جرافيك ومونتاج</div>
-          <div class="bio">بقدّم تصميمات احترافية للسوشيال ميديا والهويات البصرية بأسلوب عصري ومميز</div>
-
-          <div class="actions">
-            <a class="btn btn-primary" href="https://wa.me/201125068258?text=مرحبًا%20انا%20مهتم%20بخدماتك" target="_blank">💬 واتساب</a>
-            <a class="btn btn-ghost" href="tel:+201080805740">📞 اتصال</a>
-            <a class="btn btn-ghost" href="mailto:ma1278299@gmail.com">📧 إيميل</a>
-            <a class="btn btn-ghost" href="https://instagram.com/ma7moudd58" target="_blank">📸 إنستجرام</a>
-            <a class="btn btn-ghost" href="#works">🖼 أعمالي</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- MAIN -->
-      <div class="main">
-        <div class="section">
-          <h2 id="works">أعمالي — اضغط على أي عمل لفتح التفاصيل</h2>
-          <div class="grid" id="portfolio">
-            <!-- استبدل صور الأعمال في assets وغيّر العناوين أدناه -->
-            <div class="card-item" data-title="بوستر سوشيال ميديا" data-desc="تصميم بوستر احترافي" data-src="assets/work1.jpg">
-              <img src="assets/work1.jpg" alt="work1"><div class="title">بوستر سوشيال ميديا</div><div class="meta">مشروع عميل XYZ</div>
-            </div>
-            <div class="card-item" data-title="بوستر حملة" data-desc="تصميم سوشيال ميديا حملة إعلانية" data-src="assets/work2.jpg">
-              <img src="assets/work2.jpg" alt="work2"><div class="title">بوستر حملة</div><div class="meta">سوشيال ميديا</div>
-            </div>
-            <div class="card-item" data-title="هوية مطعم" data-desc="لوجو + منيو + بطاقات" data-src="assets/work3.jpg">
-              <img src="assets/work3.jpg" alt="work3"><div class="title">هوية مطعم</div><div class="meta">مطعم محلي</div>
-            </div>
-            <!-- يمكنك إضافة أكثر عن طريق تكرار div.card-item -->
-          </div>
-
-          <h2 style="margin-top:18px">نبذة قصيرة</h2>
-          <p class="small" style="color:var(--muted)">***سطر أو سطرين زيادة عن خبراتك أو خدماتك المميزة.***</p>
-        </div>
-
-        <aside class="side">
-          <h2>فيديو عرض قصير</h2>
-          <div class="video-wrap" id="video-area">
-            <!-- افتراضي: يوتيوب مدمج -->
-            <iframe src="https://www.youtube.com/embed/y9oRrix77SM?si=67KcLo4lrHW7ootx" allowfullscreen title="عرض أعمال"></iframe>
-          </div>
-
-          <div style="margin-top:12px">
-            <a class="btn btn-primary" href="assets/contact.vcf" download>💾 حفظ جهة الاتصال</a>
-            <a class="btn btn-ghost" href="assets/portfolio.pdf" target="_blank">📄 تحميل بورتفوليو (PDF)</a>
-          </div>
-        </aside>
-      </div>
-
-      <footer>© <span id="year"></span> ***اسمك الكامل*** — للتواصل: ***YOUREMAIL***</footer>
-    </div>
-  </div>
-
-  <!-- MODAL -->
-  <div class="modal" id="modal">
-    <div class="box">
-      <button class="close" id="closeBtn">✕</button>
-      <h3 id="mTitle" style="color:#fff;margin:8px 0"></h3>
-      <p id="mDesc" style="color:var(--muted);margin:6px 0 12px"></p>
-      <img id="mImg" src="" alt="preview">
-    </div>
-  </div>
-
-  <script>
-    // date
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // portfolio modal
-    const items = document.querySelectorAll('.card-item');
-    const modal = document.getElementById('modal');
-    const mImg = document.getElementById('mImg');
-    const mTitle = document.getElementById('mTitle');
-    const mDesc = document.getElementById('mDesc');
-    const closeBtn = document.getElementById('closeBtn');
-
-    items.forEach(it=>{
-      it.addEventListener('click', ()=>{
-        const src = it.getAttribute('data-src');
-        const title = it.getAttribute('data-title');
-        const desc = it.getAttribute('data-desc');
-        mImg.src = src;
-        mTitle.textContent = title;
-        mDesc.textContent = desc;
-        modal.classList.add('show');
-      });
-    });
-    closeBtn.addEventListener('click', ()=> modal.classList.remove('show'));
-    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.remove('show'); });
-  </script>
-</body>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+  </head>
+  <body class="bg-darkbg text-gray-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
+
+/*
+src/main.jsx
+*/
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App'
+import './index.css'
+
+createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
+
+/*
+src/index.css
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+/* small utilities for neon effect */
+.neon-text { text-shadow: 0 4px 30px rgba(0,209,255,0.08); }
+.btn-neon { background: linear-gradient(90deg, rgba(0,209,255,0.12), rgba(0,209,255,0.06)); border: 1px solid rgba(0,209,255,0.12); }
+
+/* animated gradient for accent */
+@keyframes glow {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
+  100% { filter: hue-rotate(0deg); }
+}
+
+/* header blur to match screenshots */
+.topbar { backdrop-filter: blur(6px); background: rgba(5,12,16,0.5); }
+
+/* simple card rounding like screenshot */
+.card { background: linear-gradient(180deg, rgba(15,20,32,0.8), rgba(10,14,22,0.75)); border-radius: 14px; border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 6px 30px rgba(2,6,12,0.6); }
+
+/* canvas absolute full */
+.bg-canvas { position: absolute; inset: 0; z-index: 0; }
+.container-foreground { position: relative; z-index: 10; }
+
+/* responsive tweaks */
+@media (min-width: 1024px) {
+  .hero-title { font-size: 4.0rem; }
+}
+
+/* small helpers */
+.btn-pill { padding: 0.6rem 1.2rem; border-radius: 9999px; }
+
+/* force RTL layout basics */
+* { direction: rtl; }
+
+/*
+src/data.js  (edit this file to insert your info)
+*/
+export const SITE = {
+  name: 'اسمك هنا',
+  role: 'Front-End Developer',
+  bio: 'نبذة قصيرة عنك — اكتب هنا تفاصيل مختصرة تُعرض في الصفحة الرئيسية.',
+  resume: '/resume.pdf' // put your PDF into public folder
+}
+
+export const SKILLS = [
+  { name: 'HTML/CSS', level: 'متقدم' },
+  { name: 'JavaScript', level: 'متقدم' },
+  { name: 'React', level: 'جيد جدًا' },
+  { name: 'UI/UX', level: 'جيد' }
+]
+
+export const PROJECTS = [
+  {
+    title: 'مشروع مثال 1',
+    description: 'وصف قصير للمشروع، التقنيات المستخدمة والروابط.',
+    image: '/placeholder-1.jpg'
+  },
+  {
+    title: 'مشروع مثال 2',
+    description: 'وصف قصير للمشروع.',
+    image: '/placeholder-2.jpg'
+  }
+]
+
+export const CONTACT = {
+  email: 'you@example.com',
+  whatsapp: 'https://wa.me/0123456789',
+  telegram: 'https://t.me/username',
+  linkedin: 'https://linkedin.com/in/username'
+}
+
+/*
+src/components/Background.jsx
+A simple particles canvas that animates small neon dots and connecting lines.
+*/
+import React, { useRef, useEffect } from 'react'
+
+export default function Background() {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const canvas = ref.current
+    const ctx = canvas.getContext('2d')
+    let w = canvas.width = innerWidth
+    let h = canvas.height = innerHeight
+    const particles = []
+    const count = Math.floor((w*h)/80000)
+
+    function rand(min, max){ return Math.random()*(max-min)+min }
+
+    for(let i=0;i<count;i++){
+      particles.push({ x: rand(0,w), y: rand(0,h), vx: rand(-0.2,0.2), vy: rand(-0.2,0.2), r: rand(0.8,2.2) })
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,w,h)
+      // dots
+      ctx.fillStyle = 'rgba(0,209,255,0.9)'
+      for(const p of particles){
+        ctx.beginPath(); ctx.globalAlpha = 0.9; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill()
+      }
+      // lines
+      for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+          const a = particles[i], b = particles[j]
+          const dx = a.x-b.x, dy = a.y-b.y
+          const d = Math.sqrt(dx*dx+dy*dy)
+          if(d < 120){ ctx.strokeStyle = `rgba(0,209,255,${0.12 - d/1000})`; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke() }
+        }
+      }
+    }
+
+    let raf
+    function step(){
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy
+        if(p.x<0) p.x = w
+        if(p.x>w) p.x = 0
+        if(p.y<0) p.y = h
+        if(p.y>h) p.y = 0
+      }
+      draw(); raf = requestAnimationFrame(step)
+    }
+
+    step()
+
+    const onResize = ()=>{ w = canvas.width = innerWidth; h = canvas.height = innerHeight }
+    addEventListener('resize', onResize)
+    return ()=>{ cancelAnimationFrame(raf); removeEventListener('resize', onResize) }
+  }, [])
+
+  return <canvas ref={ref} className="bg-canvas" />
+}
+
+/*
+src/App.jsx
+Main page — edit content in src/data.js
+*/
+import React from 'react'
+import { motion } from 'framer-motion'
+import Background from './components/Background'
+import { SITE, SKILLS, PROJECTS, CONTACT } from './data'
+
+export default function App(){
+  return (
+    <div className="min-h-screen relative overflow-x-hidden" dir="rtl">
+      <Background />
+      <div className="container-foreground relative px-6 lg:px-20 py-8">
+        {/* Top bar */}
+        <header className="topbar fixed left-0 right-0 z-20 px-6 lg:px-20 py-4 flex items-center justify-between shadow-sm">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-transparent" title={SITE.name}>
+              <img src="/avatar.jpg" alt="avatar" className="w-full h-full object-cover" />
+            </div>
+            <nav className="hidden md:flex gap-4 items-center">
+              <a className="px-4 py-2 rounded-full border border-transparent text-sm" href="#projects">المشاريع</a>
+              <a className="px-4 py-2 rounded-full border border-transparent text-sm" href="#skills">المهارات</a>
+              <a className="px-4 py-2 rounded-full border border-transparent text-sm" href="#contact">تواصل</a>
+            </nav>
+          </div>
+          <div className="flex items-center gap-3">
+            <a className="btn-pill btn-neon text-sm" href={SITE.resume}>السيرة الذاتية (PDF)</a>
+          </div>
+        </header>
+
+        {/* Hero */}
+        <main className="pt-28 lg:pt-36">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <motion.div initial={{opacity:0, x:40}} animate={{opacity:1, x:0}} transition={{delay:0.2}} className="card p-6">
+              <img src="/hero-code.jpg" alt="hero" className="w-full rounded-xl border-2 border-transparent object-cover" />
+            </motion.div>
+
+            <div className="p-6">
+              <motion.h1 initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay:0.3}} className="hero-title font-extrabold text-4xl lg:text-6xl leading-tight">
+                أصمّم وأبني واجهات
+                <div className="text-neon inline-block text-4xl neon-text">سريعة وأنيقة</div>
+              </motion.h1>
+
+              <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.5}} className="mt-4 text-gray-300 max-w-xl">
+                {SITE.bio}
+              </motion.p>
+
+              <div className="mt-6 flex gap-3 items-center">
+                <a className="btn-neon btn-pill px-6 py-3 font-semibold" href="#projects">استعراض الأعمال</a>
+                <a className="btn-pill px-4 py-2 border" href={SITE.resume}>السيرة الذاتية (PDF)</a>
+              </div>
+
+              <div className="mt-6 flex gap-2 flex-wrap">
+                {SKILLS.slice(0,4).map(s=> (
+                  <span key={s.name} className="px-3 py-2 border rounded-full text-sm">{s.name}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* About + Stats */}
+          <section className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 card p-6">
+              <h3 className="text-2xl font-bold mb-4">نبذة</h3>
+              <p className="text-gray-300">{SITE.bio} المزيد من التفاصيل هنا إن أحببت. يمكنك تعديل هذا النص من ملف <code>src/data.js</code>.</p>
+            </div>
+            <div className="card p-6">
+              <h4 className="text-xl font-bold">أرقام سريعة</h4>
+              <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <div className="text-3xl font-extrabold">5</div>
+                  <div className="text-sm text-gray-400">مشاريع رئيسية</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-extrabold">+20</div>
+                  <div className="text-sm text-gray-400">مكونات UI</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-extrabold">+95</div>
+                  <div className="text-sm text-gray-400">Lighthouse Perf</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Projects */}
+          <section id="projects" className="mt-12">
+            <h2 className="text-3xl font-extrabold mb-6">مشاريع مختارة</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {PROJECTS.map((p, i)=> (
+                <motion.article key={i} whileHover={{scale:1.02}} className="card overflow-hidden">
+                  <img src={p.image} alt={p.title} className="w-full h-44 object-cover rounded-t-lg" />
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg">{p.title}</h3>
+                    <p className="text-gray-300 mt-2 text-sm">{p.description}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </section>
+
+          {/* Skills + Contact */}
+          <section id="skills" className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="card p-6 lg:col-span-2">
+              <h3 className="text-2xl font-bold mb-4">المهارات</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {SKILLS.map(s=> (
+                  <div key={s.name} className="p-4 card">
+                    <div className="font-bold text-lg">{s.name}</div>
+                    <div className="text-sm text-gray-400">{s.level}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div id="contact" className="card p-6">
+              <h3 className="text-2xl font-bold mb-4">تواصل</h3>
+              <p className="text-gray-300">جاهز لأي تعاون أو فرصة.</p>
+              <div className="mt-4 flex flex-col gap-3">
+                <a className="btn-pill px-4 py-2 border text-sm" href={`mailto:${CONTACT.email}`}>البريد</a>
+                <a className="btn-pill px-4 py-2 border text-sm" href={CONTACT.whatsapp}>واتساب</a>
+                <a className="btn-pill px-4 py-2 border text-sm" href={CONTACT.telegram}>تيليجرام</a>
+                <a className="btn-pill px-4 py-2 border text-sm" href={CONTACT.linkedin}>لينكدإن</a>
+              </div>
+            </div>
+          </section>
+
+          <footer className="mt-16 py-12 text-center text-gray-400">© {new Date().getFullYear()} — {SITE.name}</footer>
+        </main>
+
+      </div>
+    </div>
+  )
+}
+
+/*
+Notes / Quick setup:
+1. Create a new Vite React project or empty folder.
+2. Add package.json contents and run `npm install`.
+3. Add the files above in the same relative paths.
+4. Put your images (avatar.jpg, hero-code.jpg, placeholder-1.jpg, placeholder-2.jpg) and resume.pdf in the public/ folder.
+5. Run `npm run dev` and open localhost:5173.
+
+You can edit text in src/data.js to change name, bio, skills, projects and contact links.
+*/
