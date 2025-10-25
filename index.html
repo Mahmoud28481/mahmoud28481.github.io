@@ -1,378 +1,69 @@
-// **React + Tailwind Portfolio Template (RTL, animated neon background)**
-// Files included below. Replace placeholder text (NAME, BIO, LINKS, PROJECTS) in src/data.js
-// Instructions: paste these files into a new React project (Vite recommended), install deps, then run.
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mahmoud Ayman — Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background:#000; color:#fff; font-family:'Inter',sans-serif; }
+    .lead-tight{ line-height:.92; }
+    .gradient-text{background:linear-gradient(90deg,#fff,#60a5fa,#9ae6b4,#fff);-webkit-background-clip:text;color:transparent;background-size:200% 200%;animation:shine 6s linear infinite;}
+    @keyframes shine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+    .typewriter{overflow:hidden;border-right:.1em solid #fff;white-space:nowrap;animation:typing 3.5s steps(30,end),blink .9s step-end infinite;}
+    @keyframes typing{from{width:0}to{width:100%}}@keyframes blink{from,to{border-color:transparent}50%{border-color:#fff}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease;}
+    .reveal.show{opacity:1;transform:translateY(0);}
+    .dome{display:block;width:100%;height:auto;}
+  </style>
+</head>
+<body>
+<header class="sticky top-0 z-40 bg-black/70 backdrop-blur border-b border-white/10">
+  <div class="container mx-auto h-16 flex items-center justify-center gap-10 font-semibold">
+    <a href="#home" class="hover:opacity-80">Home</a>
+    <a href="#about" class="hover:opacity-80">About</a>
+    <a href="#projects" class="hover:opacity-80">Projects</a>
+    <a href="#contact" class="hover:opacity-80">Contact</a>
+  </div>
+</header>
 
-/*
-package.json
-*/
-{
-  "name": "portfolio-rtl",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "framer-motion": "^10.12.16",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
-    "tailwindcss": "^3.5.4",
-    "vite": "^5.0.0"
-  }
-}
-
-/*
-postcss.config.cjs
-*/
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-
-/*
-tailwind.config.cjs
-*/
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {
-      colors: {
-        neon: '#00d1ff',
-        darkbg: '#071017',
-        card: '#0f1720',
-        card-2: '#0b1220'
-      },
-      boxShadow: {
-        'neon': '0 10px 30px rgba(0,209,255,0.08)'
-      }
-    },
-  },
-  plugins: [],
-}
-
-/*
-public/index.html
-*/
-<!doctype html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio</title>
-  </head>
-  <body class="bg-darkbg text-gray-200">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
-
-/*
-src/main.jsx
-*/
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App'
-import './index.css'
-
-createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
-
-/*
-src/index.css
-*/
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html, body, #root { height: 100%; }
-body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
-
-/* small utilities for neon effect */
-.neon-text { text-shadow: 0 4px 30px rgba(0,209,255,0.08); }
-.btn-neon { background: linear-gradient(90deg, rgba(0,209,255,0.12), rgba(0,209,255,0.06)); border: 1px solid rgba(0,209,255,0.12); }
-
-/* animated gradient for accent */
-@keyframes glow {
-  0% { filter: hue-rotate(0deg); }
-  50% { filter: hue-rotate(30deg); }
-  100% { filter: hue-rotate(0deg); }
-}
-
-/* header blur to match screenshots */
-.topbar { backdrop-filter: blur(6px); background: rgba(5,12,16,0.5); }
-
-/* simple card rounding like screenshot */
-.card { background: linear-gradient(180deg, rgba(15,20,32,0.8), rgba(10,14,22,0.75)); border-radius: 14px; border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 6px 30px rgba(2,6,12,0.6); }
-
-/* canvas absolute full */
-.bg-canvas { position: absolute; inset: 0; z-index: 0; }
-.container-foreground { position: relative; z-index: 10; }
-
-/* responsive tweaks */
-@media (min-width: 1024px) {
-  .hero-title { font-size: 4.0rem; }
-}
-
-/* small helpers */
-.btn-pill { padding: 0.6rem 1.2rem; border-radius: 9999px; }
-
-/* force RTL layout basics */
-* { direction: rtl; }
-
-/*
-src/data.js  (edit this file to insert your info)
-*/
-export const SITE = {
-  name: 'اسمك هنا',
-  role: 'Front-End Developer',
-  bio: 'نبذة قصيرة عنك — اكتب هنا تفاصيل مختصرة تُعرض في الصفحة الرئيسية.',
-  resume: '/resume.pdf' // put your PDF into public folder
-}
-
-export const SKILLS = [
-  { name: 'HTML/CSS', level: 'متقدم' },
-  { name: 'JavaScript', level: 'متقدم' },
-  { name: 'React', level: 'جيد جدًا' },
-  { name: 'UI/UX', level: 'جيد' }
-]
-
-export const PROJECTS = [
-  {
-    title: 'مشروع مثال 1',
-    description: 'وصف قصير للمشروع، التقنيات المستخدمة والروابط.',
-    image: '/placeholder-1.jpg'
-  },
-  {
-    title: 'مشروع مثال 2',
-    description: 'وصف قصير للمشروع.',
-    image: '/placeholder-2.jpg'
-  }
-]
-
-export const CONTACT = {
-  email: 'you@example.com',
-  whatsapp: 'https://wa.me/0123456789',
-  telegram: 'https://t.me/username',
-  linkedin: 'https://linkedin.com/in/username'
-}
-
-/*
-src/components/Background.jsx
-A simple particles canvas that animates small neon dots and connecting lines.
-*/
-import React, { useRef, useEffect } from 'react'
-
-export default function Background() {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const canvas = ref.current
-    const ctx = canvas.getContext('2d')
-    let w = canvas.width = innerWidth
-    let h = canvas.height = innerHeight
-    const particles = []
-    const count = Math.floor((w*h)/80000)
-
-    function rand(min, max){ return Math.random()*(max-min)+min }
-
-    for(let i=0;i<count;i++){
-      particles.push({ x: rand(0,w), y: rand(0,h), vx: rand(-0.2,0.2), vy: rand(-0.2,0.2), r: rand(0.8,2.2) })
-    }
-
-    function draw(){
-      ctx.clearRect(0,0,w,h)
-      // dots
-      ctx.fillStyle = 'rgba(0,209,255,0.9)'
-      for(const p of particles){
-        ctx.beginPath(); ctx.globalAlpha = 0.9; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill()
-      }
-      // lines
-      for(let i=0;i<particles.length;i++){
-        for(let j=i+1;j<particles.length;j++){
-          const a = particles[i], b = particles[j]
-          const dx = a.x-b.x, dy = a.y-b.y
-          const d = Math.sqrt(dx*dx+dy*dy)
-          if(d < 120){ ctx.strokeStyle = `rgba(0,209,255,${0.12 - d/1000})`; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke() }
-        }
-      }
-    }
-
-    let raf
-    function step(){
-      for(const p of particles){
-        p.x += p.vx; p.y += p.vy
-        if(p.x<0) p.x = w
-        if(p.x>w) p.x = 0
-        if(p.y<0) p.y = h
-        if(p.y>h) p.y = 0
-      }
-      draw(); raf = requestAnimationFrame(step)
-    }
-
-    step()
-
-    const onResize = ()=>{ w = canvas.width = innerWidth; h = canvas.height = innerHeight }
-    addEventListener('resize', onResize)
-    return ()=>{ cancelAnimationFrame(raf); removeEventListener('resize', onResize) }
-  }, [])
-
-  return <canvas ref={ref} className="bg-canvas" />
-}
-
-/*
-src/App.jsx
-Main page — edit content in src/data.js
-*/
-import React from 'react'
-import { motion } from 'framer-motion'
-import Background from './components/Background'
-import { SITE, SKILLS, PROJECTS, CONTACT } from './data'
-
-export default function App(){
-  return (
-    <div className="min-h-screen relative overflow-x-hidden" dir="rtl">
-      <Background />
-      <div className="container-foreground relative px-6 lg:px-20 py-8">
-        {/* Top bar */}
-        <header className="topbar fixed left-0 right-0 z-20 px-6 lg:px-20 py-4 flex items-center justify-between shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-transparent" title={SITE.name}>
-              <img src="/avatar.jpg" alt="avatar" className="w-full h-full object-cover" />
-            </div>
-            <nav className="hidden md:flex gap-4 items-center">
-              <a className="px-4 py-2 rounded-full border border-transparent text-sm" href="#projects">المشاريع</a>
-              <a className="px-4 py-2 rounded-full border border-transparent text-sm" href="#skills">المهارات</a>
-              <a className="px-4 py-2 rounded-full border border-transparent text-sm" href="#contact">تواصل</a>
-            </nav>
-          </div>
-          <div className="flex items-center gap-3">
-            <a className="btn-pill btn-neon text-sm" href={SITE.resume}>السيرة الذاتية (PDF)</a>
-          </div>
-        </header>
-
-        {/* Hero */}
-        <main className="pt-28 lg:pt-36">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <motion.div initial={{opacity:0, x:40}} animate={{opacity:1, x:0}} transition={{delay:0.2}} className="card p-6">
-              <img src="/hero-code.jpg" alt="hero" className="w-full rounded-xl border-2 border-transparent object-cover" />
-            </motion.div>
-
-            <div className="p-6">
-              <motion.h1 initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay:0.3}} className="hero-title font-extrabold text-4xl lg:text-6xl leading-tight">
-                أصمّم وأبني واجهات
-                <div className="text-neon inline-block text-4xl neon-text">سريعة وأنيقة</div>
-              </motion.h1>
-
-              <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.5}} className="mt-4 text-gray-300 max-w-xl">
-                {SITE.bio}
-              </motion.p>
-
-              <div className="mt-6 flex gap-3 items-center">
-                <a className="btn-neon btn-pill px-6 py-3 font-semibold" href="#projects">استعراض الأعمال</a>
-                <a className="btn-pill px-4 py-2 border" href={SITE.resume}>السيرة الذاتية (PDF)</a>
-              </div>
-
-              <div className="mt-6 flex gap-2 flex-wrap">
-                {SKILLS.slice(0,4).map(s=> (
-                  <span key={s.name} className="px-3 py-2 border rounded-full text-sm">{s.name}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* About + Stats */}
-          <section className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 card p-6">
-              <h3 className="text-2xl font-bold mb-4">نبذة</h3>
-              <p className="text-gray-300">{SITE.bio} المزيد من التفاصيل هنا إن أحببت. يمكنك تعديل هذا النص من ملف <code>src/data.js</code>.</p>
-            </div>
-            <div className="card p-6">
-              <h4 className="text-xl font-bold">أرقام سريعة</h4>
-              <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-                <div>
-                  <div className="text-3xl font-extrabold">5</div>
-                  <div className="text-sm text-gray-400">مشاريع رئيسية</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-extrabold">+20</div>
-                  <div className="text-sm text-gray-400">مكونات UI</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-extrabold">+95</div>
-                  <div className="text-sm text-gray-400">Lighthouse Perf</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Projects */}
-          <section id="projects" className="mt-12">
-            <h2 className="text-3xl font-extrabold mb-6">مشاريع مختارة</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {PROJECTS.map((p, i)=> (
-                <motion.article key={i} whileHover={{scale:1.02}} className="card overflow-hidden">
-                  <img src={p.image} alt={p.title} className="w-full h-44 object-cover rounded-t-lg" />
-                  <div className="p-4">
-                    <h3 className="font-bold text-lg">{p.title}</h3>
-                    <p className="text-gray-300 mt-2 text-sm">{p.description}</p>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          </section>
-
-          {/* Skills + Contact */}
-          <section id="skills" className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="card p-6 lg:col-span-2">
-              <h3 className="text-2xl font-bold mb-4">المهارات</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {SKILLS.map(s=> (
-                  <div key={s.name} className="p-4 card">
-                    <div className="font-bold text-lg">{s.name}</div>
-                    <div className="text-sm text-gray-400">{s.level}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div id="contact" className="card p-6">
-              <h3 className="text-2xl font-bold mb-4">تواصل</h3>
-              <p className="text-gray-300">جاهز لأي تعاون أو فرصة.</p>
-              <div className="mt-4 flex flex-col gap-3">
-                <a className="btn-pill px-4 py-2 border text-sm" href={`mailto:${CONTACT.email}`}>البريد</a>
-                <a className="btn-pill px-4 py-2 border text-sm" href={CONTACT.whatsapp}>واتساب</a>
-                <a className="btn-pill px-4 py-2 border text-sm" href={CONTACT.telegram}>تيليجرام</a>
-                <a className="btn-pill px-4 py-2 border text-sm" href={CONTACT.linkedin}>لينكدإن</a>
-              </div>
-            </div>
-          </section>
-
-          <footer className="mt-16 py-12 text-center text-gray-400">© {new Date().getFullYear()} — {SITE.name}</footer>
-        </main>
-
-      </div>
+<section id="home" class="container mx-auto py-16 grid md:grid-cols-2 gap-10 items-end">
+  <div class="order-2 md:order-1 reveal">
+    <h1 class="font-serif lead-tight text-[48px] md:text-[88px] gradient-text">Welcome to<br/>Mahmoud's Portfolio</h1>
+    <div class="mt-4 text-xl md:text-2xl text-white/90 typewriter">Mahmoud Ayman · BIM Engineer</div>
+    <div class="mt-8 flex items-center gap-4">
+      <a href="#projects" class="px-6 py-4 rounded-full border border-white/20 hover:bg-white/10">View Projects</a>
+      <a href="#contact" class="px-6 py-4 rounded-full bg-white text-black hover:bg-white/90">Contact Me</a>
     </div>
-  )
-}
+  </div>
+  <div class="order-1 md:order-2 reveal">
+    <svg viewBox="0 0 1000 900" class="dome">
+      <defs><clipPath id="arch-hero"><path d="M0,500 C0,225 225,0 500,0 C775,0 1000,225 1000,500 L1000,900 L0,900 Z"/></clipPath></defs>
+      <image href="https://i.postimg.cc/MHxmvswC/IMG-20251011-155224-712.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#arch-hero)"></image>
+    </svg>
+  </div>
+</section>
 
-/*
-Notes / Quick setup:
-1. Create a new Vite React project or empty folder.
-2. Add package.json contents and run `npm install`.
-3. Add the files above in the same relative paths.
-4. Put your images (avatar.jpg, hero-code.jpg, placeholder-1.jpg, placeholder-2.jpg) and resume.pdf in the public/ folder.
-5. Run `npm run dev` and open localhost:5173.
+<section id="projects" class="container mx-auto py-14">
+  <h2 class="font-serif text-[44px] md:text-[80px] lead-tight reveal">Featured Projects</h2>
+  <div class="mt-10 grid md:grid-cols-2 gap-10">
+    <div class="space-y-3 reveal"><svg viewBox="0 0 1000 900" class="dome"><defs><clipPath id="arch-0"><path d="M0,500 C0,225 225,0 500,0 C775,0 1000,225 1000,500 L1000,900 L0,900 Z"/></clipPath></defs><image href="https://i.postimg.cc/QdNY6dRn/bbfb6e7873c841db4cd41ce7f31dc5f3.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#arch-0)"></image></svg><div class="flex items-start gap-3 text-lg"><span>↳</span><h3 class="font-semibold tracking-wide">Project 1 — BIM Design</h3></div></div><div class="space-y-3 reveal"><svg viewBox="0 0 1000 900" class="dome"><defs><clipPath id="arch-1"><path d="M0,500 C0,225 225,0 500,0 C775,0 1000,225 1000,500 L1000,900 L0,900 Z"/></clipPath></defs><image href="https://i.postimg.cc/QdNY6dRn/bbfb6e7873c841db4cd41ce7f31dc5f3.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#arch-1)"></image></svg><div class="flex items-start gap-3 text-lg"><span>↳</span><h3 class="font-semibold tracking-wide">Project 2 — BIM Design</h3></div></div><div class="space-y-3 reveal"><svg viewBox="0 0 1000 900" class="dome"><defs><clipPath id="arch-2"><path d="M0,500 C0,225 225,0 500,0 C775,0 1000,225 1000,500 L1000,900 L0,900 Z"/></clipPath></defs><image href="https://i.postimg.cc/QdNY6dRn/bbfb6e7873c841db4cd41ce7f31dc5f3.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#arch-2)"></image></svg><div class="flex items-start gap-3 text-lg"><span>↳</span><h3 class="font-semibold tracking-wide">Project 3 — BIM Design</h3></div></div><div class="space-y-3 reveal"><svg viewBox="0 0 1000 900" class="dome"><defs><clipPath id="arch-3"><path d="M0,500 C0,225 225,0 500,0 C775,0 1000,225 1000,500 L1000,900 L0,900 Z"/></clipPath></defs><image href="https://i.postimg.cc/QdNY6dRn/bbfb6e7873c841db4cd41ce7f31dc5f3.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#arch-3)"></image></svg><div class="flex items-start gap-3 text-lg"><span>↳</span><h3 class="font-semibold tracking-wide">Project 4 — BIM Design</h3></div></div><div class="space-y-3 reveal"><svg viewBox="0 0 1000 900" class="dome"><defs><clipPath id="arch-4"><path d="M0,500 C0,225 225,0 500,0 C775,0 1000,225 1000,500 L1000,900 L0,900 Z"/></clipPath></defs><image href="https://i.postimg.cc/QdNY6dRn/bbfb6e7873c841db4cd41ce7f31dc5f3.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#arch-4)"></image></svg><div class="flex items-start gap-3 text-lg"><span>↳</span><h3 class="font-semibold tracking-wide">Project 5 — BIM Design</h3></div></div><div class="space-y-3 reveal"><svg viewBox="0 0 1000 900" class="dome"><defs><clipPath id="arch-5"><path d="M0,500 C0,225 225,0 500,0 C775,0 1000,225 1000,500 L1000,900 L0,900 Z"/></clipPath></defs><image href="https://i.postimg.cc/QdNY6dRn/bbfb6e7873c841db4cd41ce7f31dc5f3.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#arch-5)"></image></svg><div class="flex items-start gap-3 text-lg"><span>↳</span><h3 class="font-semibold tracking-wide">Project 6 — BIM Design</h3></div></div>
+  </div>
+</section>
 
-You can edit text in src/data.js to change name, bio, skills, projects and contact links.
-*/
+<section id="contact" class="container mx-auto py-16">
+  <h2 class="font-serif text-[44px] md:text-[84px] lead-tight reveal">Get In Touch</h2>
+  <p class="mt-4 text-lg text-white/80 reveal">For collaborations or project inquiries, feel free to reach out.</p>
+  <div class="mt-8 text-xl reveal">📧 <a href="mailto:ma1278299@gmail.com" class="underline">ma1278299@gmail.com</a></div>
+  <div class="mt-2 text-xl reveal">📞 <a href="tel:+201125068258" class="underline">(+20) 1080805740</a></div>
+</section>
+
+<footer class="py-10 text-center text-white/60">© <span id="yr"></span> Omar Al Sayed — Designed with ♥</footer>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});},{threshold:.2});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body></html>
